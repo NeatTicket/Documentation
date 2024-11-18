@@ -121,6 +121,43 @@ Aggregated data for admin insights.
 
 ---
 
+---
+#### **Invoice Table Schema**
+
+| **Attribute**      | **Type**      | **Description**                            |
+|--------------------|---------------|--------------------------------------------|
+| `id`              | UUID          | Unique identifier for the invoice.         |
+| `userId`          | UUID          | Reference to the `User` who booked tickets.|
+| `eventId`         | UUID          | Reference to the `Event` for which tickets were booked. |
+| `ticketIds`       | JSON or ARRAY | List of associated ticket IDs.             |
+| `amount`          | Decimal       | Total amount paid for the booking.         |
+| `status`          | Enum          | Payment status (`Paid`, `Pending`, `Failed`). |
+| `paymentMethod`   | String        | Payment method used (`Card`, `PayPal`, etc.). |
+| `transactionId`   | String        | Unique transaction reference.              |
+| `createdAt`       | Timestamp     | Invoice creation timestamp.                |
+
+---
+
+
+---
+
+### **Entity: EventCreatorApplication**
+
+#### **Attributes**
+| **Attribute**      | **Type**      | **Description**                                  |
+|--------------------|---------------|--------------------------------------------------|
+| `id`              | UUID          | Unique identifier for the application.           |
+| `userId`          | UUID          | Reference to the user submitting the application.|
+| `status`          | Enum          | Application status (`Pending`, `Approved`, `Rejected`). |
+| `reason`          | Text          | Reason provided for applying as an event creator.|
+| `adminId`         | UUID          | Reference to the admin who reviewed the application (optional). |
+| `reviewComment`   | Text          | Comments by the admin (if reviewed).            |
+| `createdAt`       | Timestamp     | Application submission timestamp.                |
+| `updatedAt`       | Timestamp     | Last update timestamp for the application.       |
+
+---
+
+
 ### **Relationships**
 1. **User**:
    - **NormalUser** can book multiple **Tickets** and have items in the **Cart** (One-to-Many).
@@ -134,37 +171,36 @@ Aggregated data for admin insights.
 3. **Cart**:
    - Links a **NormalUser** to multiple **Events** (One-to-Many).
 
-4. **Review**:
+4. **Invoice to User**:
+   - **Many-to-One Relationship**:
+     One `User` can have multiple invoices for different bookings.
+
+5. **Invoice to Event**:
+   - **Many-to-One Relationship**:
+     An `Invoice` is linked to one `Event`.
+
+6. **Invoice to Tickets**:
+   - **One-to-Many Relationship**:
+     An `Invoice` contains multiple `Tickets` for the same `Event`.
+
+
+7. **Review**:
    - Links a **NormalUser** to an **Event** (Many-to-One).
 
-5. **Notification**:
+8. **Notification**:
    - Linked to a specific **User** (Many-to-One).
 
-6. **Analytics**:
+9. **Analytics**:
    - Summarizes the overall platform activity.
+
+10. **EventCreatorApplication**:
+   - **Many-to-One** with **User**: Each user can submit multiple applications.
+   - **Many-to-One** with **Admin**: An application is reviewed by one admin.
+11. The **status** field in the application determines the user’s role transition:
+   - If `Approved`: Update `User.role` to `EventCreator`.
+
 
 ---
 
 ### **Entity-Relationship Diagram (Updated)**
 
-```
-+--------------------+         +---------------------+          +----------------------+
-|       Admin        |<------->|        User         |<-------->|      NormalUser      |
-+--------------------+         +---------------------+          +----------------------+
-          ^                         |   |   |   |                     |
-          |                         |   |   |   |                     |
-          |                         v   v   v   v                     |
- +----------------+        +---------------------+           +------------------+
- |     Event      |<------->|        Cart         |<----------|    EventCreator  |
- +----------------+        +---------------------+           +------------------+
-          |                             |                           |  
-          v                             |                           v
- +-----------------+            +-------------+           +------------------+
- |   Categories    |            |   Payment   |           |   Notifications  |
- +-----------------+            +-------------+           +------------------+
-          |
-          v
- +-------------+
- |   Review    |
- +-------------+
-```
