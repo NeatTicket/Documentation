@@ -8,7 +8,8 @@ Represents a user of the platform, which can be a `NormalUser`, `EventCreator`, 
 | **Attribute**      | **Type**      | **Description**                          |
 |--------------------|---------------|------------------------------------------|
 | `id`              | UUID          | Unique identifier for the user.          |
-| `name`            | String        | Full name of the user.                   |
+| `first_name`            | String        | First name of the user.                   |
+| `last_name`            | String        | Last name of the user.                   |
 | `email`           | String        | Unique email address.                    |
 | `password`        | String (Hashed) | User's hashed password.                  |
 | `role`            | Enum          | User role (`NormalUser`, `EventCreator`, `Admin`). |
@@ -101,6 +102,8 @@ Represents an admin user managing the platform.
 | **Attribute**      | **Type**      | **Description**                          |
 |--------------------|---------------|------------------------------------------|
 | `id`              | UUID          | Unique identifier for the admin.         |
+| `first_name`            | String        | First name of the user.                   |
+| `last_name`            | String        | Last name of the user.                   |
 | `email`           | String        | Admin email address (unique).            |
 | `password`        | String (Hashed) | Admin hashed password.                   |
 | `createdAt`       | Timestamp     | Account creation timestamp.              |
@@ -122,7 +125,7 @@ Aggregated data for admin insights.
 ---
 
 ---
-#### **Invoice Table Schema**
+#### **Entity: Invoice **
 
 | **Attribute**      | **Type**      | **Description**                            |
 |--------------------|---------------|--------------------------------------------|
@@ -201,6 +204,3 @@ Aggregated data for admin insights.
 
 
 ---
-
-### **Entity-Relationship Diagram (Updated)**
-
