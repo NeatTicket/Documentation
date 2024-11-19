@@ -1,5 +1,3 @@
-To organize all sprints effectively, here’s a detailed plan for your **Event Booking Platform** project. Each sprint focuses on specific deliverables based on your project components, ensuring clarity and alignment. You can use these for the README file and Trello board.
-
 ---
 
 ### **Sprint 1: Project Initialization & Setup (Week 1)**
