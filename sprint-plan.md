@@ -1,5 +1,3 @@
----
-
 ### **Sprint 1: Project Initialization & Setup (Week 1)**
 - **Objectives:**
   - Set up the development environment.
