@@ -1,209 +1,156 @@
-### **Complete Entities for the Event Booking System with Cart**
+# Entities Documentation
+
+This document outlines the core entities and their relationships for the **NeatTicket Event Booking Platform**. It includes essential tables for users, roles, events, places, tickets, invoices, notifications, and applications for place creators.
 
 ---
 
-#### **User**
+## **1. Core Tables**
 
-Represents a user of the platform, which can be a `NormalUser`, `EventCreator`, or `Admin`.
+### **User** (Users)
+Stores details of users and their roles.
 
-| **Attribute**    | **Type**        | **Description**                                    |
-| ---------------- | --------------- | -------------------------------------------------- |
-| `id`             | UUID            | Unique identifier for the user.                    |
-| `first_name`     | String          | First name of the user.                            |
-| `last_name`      | String          | Last name of the user.                             |
-| `email`          | String          | Unique email address.                              |
-| `password`       | String (Hashed) | User's hashed password.                            |
-| `role`           | Enum            | User role (`NormalUser`, `EventCreator`, `Admin`). |
-| `profilePicture` | String (URL)    | URL for the user's profile picture (optional).     |
-| `location`       | String          | User's preferred location (optional).              |
-| `createdAt`      | Timestamp       | When the user account was created.                 |
-| `updatedAt`      | Timestamp       | Last update time for the account.                  |
-
----
-
-#### **Event**
-
-Represents an event created by an event creator.
-
-| **Attribute**    | **Type**  | **Description**                         |
-| ---------------- | --------- | --------------------------------------- |
-| `id`             | UUID      | Unique identifier for the event.        |
-| `title`          | String    | Name of the event.                      |
-| `description`    | Text      | Detailed description of the event.      |
-| `location`       | String    | Address or online meeting URL.          |
-| `geoCoordinates` | Object    | Latitude and longitude for geolocation. |
-| `dateTime`       | Timestamp | Event's scheduled date and time.        |
-| `creatorId`      | UUID      | Reference to the `EventCreator`.        |
-| `price`          | Decimal   | Price per ticket (0 for free events).   |
-| `capacity`       | Integer   | Maximum number of attendees.            |
-| `attendeesCount` | Integer   | Current number of attendees.            |
-| `isOnline`       | Boolean   | Indicates if the event is online.       |
-| `createdAt`      | Timestamp | Event creation timestamp.               |
-| `updatedAt`      | Timestamp | Last update time for the event.         |
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique identifier for a user            |
+| `firstName`    | String        | User's first name                       |
+| `lastName`     | String        | User's last name                        |
+| `email`        | String        | User's email address (required)         |
+| `password`     | String        | Password (hashed, for security)         |
+| `role_id`      | Foreign Key   | Refers to the **Role** table            |
+| `created_at`   | Timestamp     | Date and time when the account was created |
+| `updated_at`   | Timestamp     | Last account update timestamp           |
 
 ---
 
-#### **Ticket**
+### **Role** (Roles)
+Defines user roles and associated permissions.
 
-Represents a ticket booked by a normal user for an event.
-
-| **Attribute**    | **Type**     | **Description**                                  |
-| ---------------- | ------------ | ------------------------------------------------ |
-| `id`             | UUID         | Unique identifier for the ticket.                |
-| `userId`         | UUID         | Reference to the `NormalUser`.                   |
-| `eventId`        | UUID         | Reference to the associated event.               |
-| `paymentInvoice` | String (URL) | Invoice URL or reference.                        |
-| `status`         | Enum         | Booking status (`Confirmed`, `Cancelled`, etc.). |
-| `createdAt`      | Timestamp    | Ticket creation timestamp.                       |
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique identifier for the role          |
+| `name`         | String        | Role name (`Admin`, `Place Owner`, etc.) |
+| `permissions`  | JSON          | Role-specific permissions (flexible)    |
 
 ---
 
-#### **Cart**
+### **Place** (Places)
+Stores venue details managed by place owners.
 
-Represents the cart for holding events before booking.
-
-| **Attribute** | **Type**  | **Description**                                               |
-| ------------- | --------- | ------------------------------------------------------------- |
-| `id`          | UUID      | Unique identifier for the cart item.                          |
-| `userId`      | UUID      | Reference to the `NormalUser`.                                |
-| `eventId`     | UUID      | Reference to the associated event.                            |
-| `quantity`    | Integer   | Number of tickets the user intends to book (default: 1).      |
-| `status`      | Enum      | Status of the item in the cart (`Pending`, `Reserved`, etc.). |
-| `createdAt`   | Timestamp | Timestamp of addition to the cart.                            |
-| `updatedAt`   | Timestamp | Last update time for the cart.                                |
-
----
-
-#### **Review**
-
-Represents feedback left by a user for an event.
-
-| **Attribute** | **Type**      | **Description**                    |
-| ------------- | ------------- | ---------------------------------- |
-| `id`          | UUID          | Unique identifier for the review.  |
-| `eventId`     | UUID          | Reference to the associated event. |
-| `userId`      | UUID          | Reference to the `NormalUser`.     |
-| `rating`      | Integer (1-5) | Numeric rating for the event.      |
-| `comment`     | Text          | Optional textual feedback.         |
-| `createdAt`   | Timestamp     | Review creation timestamp.         |
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique identifier for a place           |
+| `name`         | String        | Place name                              |
+| `location`     | String        | Address of the place                    |
+| `capacity`     | Integer       | Maximum capacity of the venue           |
+| `description`  | Text          | Detailed description of the place       |
+| `price`        | Float         | Booking price                           |
+| `owner_id`     | Foreign Key   | Refers to the **User** who owns the place |
+| `created_at`   | Timestamp     | Date and time when the place was added  |
+| `updated_at`   | Timestamp     | Last modification timestamp             |
 
 ---
 
-#### **Notification**
+### **Event** (Events)
+Captures information about events hosted at venues.
 
-Represents notifications sent to users.
-
-| **Attribute** | **Type**  | **Description**                         |
-| ------------- | --------- | --------------------------------------- |
-| `id`          | UUID      | Unique identifier for the notification. |
-| `recipientId` | UUID      | Reference to the user receiving it.     |
-| `message`     | Text      | Content of the notification.            |
-| `createdAt`   | Timestamp | Notification creation timestamp.        |
-
----
-
-#### **Analytics**
-
-Aggregated data for admin insights.
-
-| **Attribute**  | **Type**  | **Description**                             |
-| -------------- | --------- | ------------------------------------------- |
-| `id`           | UUID      | Unique identifier for the analytics record. |
-| `totalUsers`   | Integer   | Total number of registered users.           |
-| `totalEvents`  | Integer   | Total number of events created.             |
-| `totalRevenue` | Decimal   | Total revenue generated from bookings.      |
-| `createdAt`    | Timestamp | Record creation timestamp.                  |
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique identifier for an event          |
+| `title`        | String        | Event name or title                     |
+| `description`  | Text          | Description of the event                |
+| `place_id`     | Foreign Key   | Refers to the **Place** table           |
+| `creator_id`   | Foreign Key   | Refers to the **User** who created the event |
+| `start_time`   | Timestamp     | Event start time                        |
+| `end_time`     | Timestamp     | Event end time                          |
+| `created_at`   | Timestamp     | Date when the event was created         |
+| `updated_at`   | Timestamp     | Last update timestamp                   |
 
 ---
 
----
+### **Ticket** (Tickets)
+Represents tickets booked by users for specific events.
 
-#### **Entity: Invoice **
-
-| **Attribute**   | **Type**      | **Description**                                         |
-| --------------- | ------------- | ------------------------------------------------------- |
-| `id`            | UUID          | Unique identifier for the invoice.                      |
-| `userId`        | UUID          | Reference to the `User` who booked tickets.             |
-| `eventId`       | UUID          | Reference to the `Event` for which tickets were booked. |
-| `ticketIds`     | JSON or ARRAY | List of associated ticket IDs.                          |
-| `amount`        | Decimal       | Total amount paid for the booking.                      |
-| `status`        | Enum          | Payment status (`Paid`, `Pending`, `Failed`).           |
-| `paymentMethod` | String        | Payment method used (`Card`, `PayPal`, etc.).           |
-| `transactionId` | String        | Unique transaction reference.                           |
-| `createdAt`     | Timestamp     | Invoice creation timestamp.                             |
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique ticket identifier                |
+| `event_id`     | Foreign Key   | Refers to the **Event** table           |
+| `buyer_id`     | Foreign Key   | Refers to the **User** who purchased the ticket |
+| `status`       | Enum          | Status (`booked`, `canceled`)           |
+| `price`        | Float         | Ticket price                            |
+| `created_at`   | Timestamp     | Timestamp when the ticket was purchased |
 
 ---
 
----
+### **Invoice** (Invoices)
+Tracks payment and billing details for ticket purchases.
 
-### **Entity: EventCreatorApplication**
-
-#### **Attributes**
-
-| **Attribute**   | **Type**  | **Description**                                                 |
-| --------------- | --------- | --------------------------------------------------------------- |
-| `id`            | UUID      | Unique identifier for the application.                          |
-| `userId`        | UUID      | Reference to the user submitting the application.               |
-| `status`        | Enum      | Application status (`Pending`, `Approved`, `Rejected`).         |
-| `reason`        | Text      | Reason provided for applying as an event creator.               |
-| `adminId`       | UUID      | Reference to the admin who reviewed the application (optional). |
-| `reviewComment` | Text      | Comments by the admin (if reviewed).                            |
-| `createdAt`     | Timestamp | Application submission timestamp.                               |
-| `updatedAt`     | Timestamp | Last update timestamp for the application.                      |
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique identifier for the invoice       |
+| `ticket_id`    | Foreign Key   | Refers to the **Ticket** table          |
+| `amount`       | Float         | Total amount paid                       |
+| `status`       | Enum          | Payment status (`paid`, `pending`)      |
+| `transaction_id`| String       | Reference to an external payment gateway |
+| `created_at`   | Timestamp     | Date the invoice was generated          |
 
 ---
 
-### **Relationships**
+### **Notification** (Notifications)
+Tracks notifications sent to users.
 
-1. **User**:
-
-   - **NormalUser** can book multiple **Tickets** and have items in the **Cart** (One-to-Many).
-   - **EventCreator** can create multiple **Events** (One-to-Many).
-   - **Admin** manages all other entities.
-
-2. **Event**:
-
-   - Linked to one **EventCreator** (Many-to-One).
-   - Can have multiple **Tickets**, **Cart Items**, and **Reviews** (One-to-Many).
-
-3. **Cart**:
-
-   - Links a **NormalUser** to multiple **Events** (One-to-Many).
-
-4. **Invoice to User**:
-
-   - **Many-to-One Relationship**:
-     One `User` can have multiple invoices for different bookings.
-
-5. **Invoice to Event**:
-
-   - **Many-to-One Relationship**:
-     An `Invoice` is linked to one `Event`.
-
-6. **Invoice to Tickets**:
-
-   - **One-to-Many Relationship**:
-     An `Invoice` contains multiple `Tickets` for the same `Event`.
-
-7. **Review**:
-
-   - Links a **NormalUser** to an **Event** (Many-to-One).
-
-8. **Notification**:
-
-   - Linked to a specific **User** (Many-to-One).
-
-9. **Analytics**:
-
-   - Summarizes the overall platform activity.
-
-10. **EventCreatorApplication**:
-
-- **Many-to-One** with **User**: Each user can submit multiple applications.
-- **Many-to-One** with **Admin**: An application is reviewed by one admin.
-
-11. The **status** field in the application determines the user’s role transition:
-
-- If `Approved`: Update `User.role` to `EventCreator`.
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique identifier for the notification  |
+| `message`      | Text          | Notification message content            |
+| `user_id`      | Foreign Key   | Refers to the **User** table            |
+| `status`       | Enum          | Status (`sent`, `read`)                 |
+| `created_at`   | Timestamp     | Date and time of notification creation  |
 
 ---
+
+### **PlaceCreatorApplication** (PlaceCreatorApplications)
+Manages applications to create or manage venues.
+
+| **Field**      | **Type**      | **Description**                         |
+|----------------|---------------|-----------------------------------------|
+| `id`           | Primary Key   | Unique identifier for the application   |
+| `user_id`      | Foreign Key   | Refers to the **User** table            |
+| `place_name`   | String        | Name of the proposed place              |
+| `status`       | Enum          | Application status (`pending`, `approved`, `rejected`) |
+| `created_at`   | Timestamp     | Date of application submission          |
+| `updated_at`   | Timestamp     | Last update timestamp                   |
+| `reason`       | Text          | Reason for rejection (if applicable)    |
+| `description`  | Text          | Details provided by the applicant       |
+| `documents`    | String (Path) | Path or URL to supporting documents      |
+| `approved_by`  | Foreign Key   | Refers to the admin who reviewed the application |
+
+---
+
+## **2. Relationships**
+
+### Key Relationships:
+1. **User ↔ Role**: **N:1**  
+   - Each user has one role, but roles can apply to multiple users.
+
+2. **User ↔ Place**: **1:N**  
+   - A user (place owner) can manage multiple venues.
+
+3. **Place ↔ Event**: **1:N**  
+   - A venue can host multiple events.
+
+4. **Event ↔ Ticket**: **1:N**  
+   - Each event can sell multiple tickets.
+
+5. **Ticket ↔ User**: **N:1**  
+   - Each ticket is tied to a specific user (buyer).
+
+6. **Ticket ↔ Invoice**: **1:1**  
+   - Each ticket generates a single invoice.
+
+7. **Notification ↔ User**: **N:1**  
+   - Notifications are sent to users based on actions or updates.
+
+8. **User ↔ PlaceCreatorApplication**: **1:N**  
+   - A user can submit multiple applications to create or manage venues.
+
+--- 
