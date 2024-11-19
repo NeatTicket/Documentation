@@ -1,75 +1,121 @@
 # Features
 
-This document outlines the key features of the Event Booking Platform.
+This document provides a detailed breakdown of the key features of the **NeatTicket Event Booking Platform**, categorized by user roles and additional functionalities.
 
 ---
 
-## Normal User Features
+## **Normal User Features**
+
 1. **User Authentication:**
-   - Signup and login using email and password.
-   - Profile management (update name, email, password, profile picture).
+   - Register and log in using email and password.
+   - Manage profiles by updating name, email, password, and profile picture.
+
 2. **Event Browsing:**
-   - View available events based on the user's location.
-   - Filter and search events by category, date, or location.
+   - Discover events based on user location and preferences.
+   - Search and filter events by category, date, or keyword.
+
 3. **Event Booking:**
-   - Book an event and receive an electronic ticket.
-   - Payment integration for booking fees.
+   - Securely book tickets for events and receive electronic tickets.
+   - Integrated payment system for a seamless booking experience.
+
 4. **Notifications:**
-   - Receive reminders and updates about booked events.
+   - Receive updates and reminders for upcoming events.
+   - Notifications for successful bookings and payment confirmations.
+
 5. **Event Interaction:**
-   - Add events to a calendar for reminders.
-   - Post questions and reviews for event organizers.
+   - Add booked events to personal calendars.
+   - Ask questions directly to event creators and leave event reviews.
+
 6. **Cart Management:**
-   - Add tickets to a cart and review before checkout.
+   - Add multiple tickets to a shopping cart for streamlined checkout.
+   - View and modify cart details before finalizing payment.
 
 ---
 
-## Event Creator Features
-1. **Event Creation:**
-   - Create, edit, and delete events (online or offline).
-   - Define ticket prices, event capacity, and location details.
+## **Event Creator Features**
+
+1. **Event Management:**
+   - Create, edit, or delete event listings.
+   - Define ticket pricing, event capacity, and venue details (online or offline events).
+
 2. **Analytics:**
-   - View attendee statistics and revenue reports.
-   - Check attendee check-in status in real-time.
-3. **User Engagement:**
-   - Communicate directly with attendees via a chat feature.
-   - Receive and manage event reviews.
+   - Monitor event performance with attendee statistics and revenue reports.
+   - Real-time tracking of attendee check-ins for hosted events.
+
+3. **Audience Engagement:**
+   - Communicate with ticket holders via integrated chat tools.
+   - Manage feedback and reviews for events.
+
 4. **Notifications:**
-   - Notify attendees about event updates or changes.
+   - Send updates or announcements to attendees about event changes or important details.
 
 ---
 
-## Admin Features
-1. **User Management:**
-   - View, edit, or delete user accounts.
-2. **Event Management:**
-   - Approve or reject event submissions.
-   - Monitor event performance and statistics.
-3. **Platform Monitoring:**
-   - View system analytics (total users, bookings, revenue).
-4. **Support:**
-   - Handle user complaints or issues.
+## **Place Owner Features**
 
----
+1. **Venue Management:**
+   - List venues for event hosting and manage availability.
+   - Approve or reject booking requests based on availability and capacity.
 
-## Real-Time Features
-1. **Chat System:**
-   - Real-time chat between users and event creators.
 2. **Notifications:**
-   - Instant notifications for events, bookings, or updates.
+   - Get notified of new booking requests or updates.
+   - Alerts for upcoming reservations or cancellations.
+
+3. **Insights & Reporting:**
+   - Access reports on venue utilization, revenue, and event feedback.
+
+4. **Direct Communication:**
+   - Chat with event creators to finalize details or handle inquiries.
 
 ---
 
-## Other Features
-1. **Multi-language Support:**
-   - Allow users to view the platform in different languages.
-2. **Dark Mode:**
-   - Provide an optional dark mode for the interface.
-3. **Map Integration:**
-   - Interactive map to show event locations.
+## **Admin Features**
+
+1. **User Management:**
+   - Create, view, edit, or deactivate user accounts.
+   - Assign or update user roles (normal user, event creator, or place owner).
+
+2. **Event Oversight:**
+   - Review and approve/reject submitted events.
+   - Monitor event activity and statistics for quality assurance.
+
+3. **Platform Analytics:**
+   - Track platform metrics, including total users, bookings, revenue, and events.
+
+4. **Dispute Resolution:**
+   - Manage complaints or disputes between users and event creators.
+
+5. **Announcements:**
+   - Send platform-wide notifications or updates to all users.
 
 ---
 
-### Notes
-- Features marked with `*` are MVP goals.
-- Advanced features may be implemented in later sprints.
+## **Real-Time Features**
+
+1. **Chat System:**
+   - Enable live communication between users, event creators, and place owners.
+
+2. **Instant Notifications:**
+   - Provide real-time updates for booking confirmations, reminders, or event changes.
+
+---
+
+## **Additional Features**
+
+1. **Map Integration:**
+   - Interactive maps to display event and venue locations with navigation support.
+
+2. **Multi-Language Support:**
+   - Allow users to access the platform in their preferred language.
+
+3. **Dark Mode:**
+   - Optional dark theme for better user experience in low-light environments.
+
+4. **Accessibility:**
+   - Incorporate features to ensure the platform is usable for individuals with disabilities.
+
+5. **Social Media Sharing:**
+   - Let users share events on social platforms to promote attendance.
+
+---
+
