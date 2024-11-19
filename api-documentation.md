@@ -1,269 +1,212 @@
-# **API Documentation**
+### **API Documentation**
 
-## **Overview**
-This document outlines the REST API endpoints for the Event Booking Platform. It includes the routes, required parameters, and expected responses for each entity and functionality.
-
----
-
-## **Base URL**
-- **Development**: `http://localhost:8000/api`
-- **Production**: `https://yourdomain.com/api`
+This REST API is designed for the **Event Booking Platform**, enabling various functionalities for users, events, tickets, and administrative operations. Below is a detailed guide for each endpoint, including usage, parameters, and expected responses.
 
 ---
 
-## **General Conventions**
-### **Headers**
-- `Authorization: Bearer <token>` (required for authenticated routes)
-- `Content-Type: application/json`
+### **1. Overview**
 
-### **Response Format**
-All responses will return in JSON format:
-```json
-{
-  "success": true,
-  "message": "Operation completed successfully",
-  "data": { ... }
-}
-```
-If an error occurs:
-```json
-{
-  "success": false,
-  "message": "Error message explaining what went wrong"
-}
-```
+#### **Base URL**
+- Development: `http://localhost:8000/api`
+- Production: `https://yourdomain.com/api`
+
+#### **General Conventions**
+- **Headers**
+  - `Authorization: Bearer <token>` (for authenticated routes)
+  - `Content-Type: application/json`
+
+- **Response Format**
+  All responses return JSON:
+  ```json
+  {
+    "success": true,
+    "message": "Operation completed successfully",
+    "data": { ... }
+  }
+  ```
+  Errors return:
+  ```json
+  {
+    "success": false,
+    "message": "Error message explaining the issue"
+  }
+  ```
 
 ---
 
-## **Endpoints**
-
-### **1. User Management**
+### **2. User Management**
 
 #### **Authentication**
-- **Register User**
-  - **POST /auth/register**
-    Registers a new user (NormalUser, EventCreator, or Admin).
-    **Request Body**:
-    ```json
-    {
-      "name": "John Doe",
-      "email": "john@example.com",
-      "password": "securePassword",
-      "role": "NormalUser"
-    }
-    ```
-    **Response**:
-    ```json
-    {
-      "id": "UUID",
-      "name": "John Doe",
-      "email": "john@example.com",
-      "role": "NormalUser",
-      "createdAt": "2024-11-13T12:00:00Z"
-    }
-    ```
+- **Register User**  
+  **POST** `/auth/register`  
+  Registers a new user.
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "securePassword",
+    "role": "NormalUser"
+  }
+  ```
 
-- **Login User**
-  - **POST /auth/login**
-    Logs in an existing user.
-    **Request Body**:
-    ```json
-    {
-      "email": "john@example.com",
-      "password": "securePassword"
-    }
-    ```
-    **Response**:
-    ```json
-    {
-      "token": "jwtToken",
-      "userId": "UUID",
-      "role": "NormalUser"
-    }
-    ```
+- **Login User**  
+  **POST** `/auth/login`  
+  Authenticates and returns a token.
+  ```json
+  {
+    "email": "john@example.com",
+    "password": "securePassword"
+  }
+  ```
 
-- **Logout User**
-  - **POST /auth/logout**
-    Logs out the current user.
-    **Response**:
-    ```json
-    {
-      "message": "Logout successful"
-    }
-    ```
+- **Logout User**  
+  **POST** `/auth/logout`  
+  Ends the user's session.
 
-#### **User Profile**
-- **Get Profile**
-  - **GET /users/:userId**
-    Retrieves user profile details.
-    **Response**:
-    ```json
-    {
-      "id": "UUID",
-      "name": "John Doe",
-      "email": "john@example.com",
-      "profilePicture": "https://example.com/image.jpg",
-      "role": "NormalUser",
-      "createdAt": "2024-11-13T12:00:00Z",
-      "updatedAt": "2024-11-14T14:00:00Z"
-    }
-    ```
+#### **Profile Management**
+- **Get User Profile**  
+  **GET** `/users/:userId`
 
-- **Update Profile**
-  - **PATCH /users/:userId**
-    Updates user profile information.
-    **Request Body**:
-    ```json
-    {
-      "name": "Jane Doe",
-      "profilePicture": "https://example.com/new-image.jpg"
-    }
-    ```
-    **Response**:
-    ```json
-    {
-      "id": "UUID",
-      "name": "Jane Doe",
-      "email": "john@example.com",
-      "profilePicture": "https://example.com/new-image.jpg",
-      "updatedAt": "2024-11-15T10:00:00Z"
-    }
-    ```
+- **Update Profile**  
+  **PATCH** `/users/:userId`
 
-- **Delete Account**
-  - **DELETE /users/:userId**
-    Deletes a user account.
-    **Response**:
-    ```json
-    {
-      "message": "User deleted successfully"
-    }
-    ```
+- **Delete User Account**  
+  **DELETE** `/users/:userId`
 
 ---
 
-### **2. Event Management**
+### **3. Event Management**
 
-#### **Event Operations**
-- **Create Event**
-  - **POST /events**
-    Creates a new event. Requires `EventCreator` role.
-    **Request Body**:
-    ```json
-    {
-      "title": "Music Concert",
-      "description": "An exciting music event.",
-      "location": "123 Main St, City",
-      "geoCoordinates": "45.76,-122.12",
-      "dateTime": "2024-11-20T14:00:00Z",
-      "price": 50,
-      "capacity": 200,
-      "isOnline": false,
-      "categoryId": "UUID"
-    }
-    ```
-    **Response**:
-    ```json
-    {
-      "id": "UUID",
-      "title": "Music Concert",
-      "createdAt": "2024-11-13T12:00:00Z"
-    }
-    ```
+#### **CRUD Operations**
+- **Create Event**  
+  **POST** `/events`  
+  Requires `EventCreator` role.
 
-- **List Events**
-  - **GET /events**
-    Retrieves all events with optional filters.
-    **Query Parameters**:
-    - `?category=UUID`
-    - `?location=City`
-    - `?date=YYYY-MM-DD`
+- **List Events**  
+  **GET** `/events`  
+  Filters supported:
+  - `?category=UUID`
+  - `?location=City`
+  - `?date=YYYY-MM-DD`
 
-- **Event Details**
-  - **GET /events/:eventId**
-    Retrieves details of a specific event.
+- **Get Event Details**  
+  **GET** `/events/:eventId`
 
-- **Update Event**
-  - **PATCH /events/:eventId**
-    Updates event details (requires ownership).
+- **Update Event**  
+  **PATCH** `/events/:eventId`
 
-- **Delete Event**
-  - **DELETE /events/:eventId**
-    Deletes an event (requires admin or ownership).
+- **Delete Event**  
+  **DELETE** `/events/:eventId`
 
 ---
 
-### **3. Cart Management**
+### **4. Ticket Management**
 
-- **Add to Cart**
-  - **POST /cart/add**
-    Adds an event to the cart.
-    **Request Body**:
-    ```json
-    {
-      "eventId": "UUID",
-      "quantity": 2
-    }
-    ```
-    **Response**:
-    ```json
-    {
-      "message": "Event added to cart successfully"
-    }
-    ```
+#### **Operations**
+- **Add Ticket**  
+  **POST** `/tickets`
 
-- **View Cart**
-  - **GET /cart**
-    Retrieves the user’s cart.
+- **List User Tickets**  
+  **GET** `/tickets`
 
-- **Update Cart**
-  - **PATCH /cart/update/:cartId**
-    Updates ticket quantities.
+- **Ticket Details**  
+  **GET** `/tickets/:ticketId`
 
-- **Remove from Cart**
-  - **DELETE /cart/remove/:cartId**
-    Removes an item from the cart.
+- **Cancel Ticket**  
+  **DELETE** `/tickets/:ticketId`
 
 ---
 
-### **4. Ticket Booking**
+### **5. Invoice Management**
 
-- **Checkout**
-  - **POST /tickets/checkout**
-    Processes checkout for cart items.
+#### **Operations**
+- **Create Invoice**  
+  **POST** `/invoices`
 
-- **List Tickets**
-  - **GET /tickets**
-    Retrieves all tickets for the user.
+- **View Invoice**  
+  **GET** `/invoices/:invoiceId`
 
----
-
-### **5. Reviews and Ratings**
-
-- **Submit Review**
-  - **POST /reviews**
-    Submits a review for an event.
-    **Request Body**:
-    ```json
-    {
-      "eventId": "UUID",
-      "rating": 5,
-      "comment": "Amazing event!"
-    }
-    ```
-
-- **Get Event Reviews**
-  - **GET /reviews/:eventId**
-    Retrieves all reviews for an event.
+- **List User Invoices**  
+  **GET** `/invoices`
 
 ---
 
-### **6. Admin Operations**
+### **6. Notifications**
 
-- **View Analytics**
-  - **GET /admin/analytics**
-    Retrieves platform metrics (users, events, revenue).
+#### **Notification Operations**
+- **List Notifications**  
+  **GET** `/notifications`
 
-- **Manage Users**
-  - **PATCH /admin/users/:userId/status**
-    Updates user status (e.g., ban/unban).
+- **Mark as Read**  
+  **PATCH** `/notifications/:notificationId`
+
+---
+
+### **7. Admin Operations**
+
+#### **Platform Management**
+- **View Analytics**  
+  **GET** `/admin/analytics`
+
+- **Manage Users**  
+  **PATCH** `/admin/users/:userId/status`
+
+#### **Event and Ticket Oversight**
+- **Approve/Reject Events**  
+  **PATCH** `/admin/events/:eventId/status`
+
+- **Manage Payments**  
+  **GET** `/admin/payments`
+
+---
+
+### **8. Use Case Examples**
+
+#### **Booking an Event**
+1. **Add Tickets**  
+   User adds tickets to their cart:
+   **POST** `/tickets/add`
+   ```json
+   {
+     "eventId": "UUID",
+     "quantity": 2
+   }
+   ```
+
+2. **Checkout**  
+   User proceeds to checkout:
+   **POST** `/tickets/checkout`
+
+3. **Invoice Generation**  
+   Invoice is created automatically:
+   **GET** `/invoices/:invoiceId`
+
+#### **User Registration and Login**
+- User registers via **POST** `/auth/register`
+- Logs in using **POST** `/auth/login`
+- Access profile using **GET** `/users/:userId`
+
+---
+
+This document can be expanded with additional details, such as sample errors, rate limiting, or webhooks. Let me know if you'd like further refinements!
+> ### **Potential Enhancements**
+1. **Detailed Error Codes**:  
+   - Provide examples of specific error codes (e.g., `401 Unauthorized`, `404 Not Found`) and explanations for common failures.
+
+2. **Rate Limiting Information**:  
+   - Mention if there are limits to API requests (e.g., "Max 100 requests per minute").
+
+3. **Webhooks (if applicable)**:  
+   - Define webhook endpoints for real-time updates (e.g., payment status changes, ticket cancellations).
+
+4. **Versioning**:  
+   - Clarify if the API is versioned (e.g., `v1`, `v2`).
+
+5. **Authentication Examples**:  
+   - Include a sample token and usage example in headers.
+
+6. **Expanded Use Cases**:  
+   - Offer more user workflows, like creating venues or admin operations.
+
+7. **Sample Errors**:  
+   - Add examples of error responses for invalid requests (e.g., missing parameters, unauthorized actions).
