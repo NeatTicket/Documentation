@@ -1,9 +1,8 @@
+### **User Stories (MoSCoW Prioritization)**
 
+---
 
-### **MoSCoW User Stories**
-
-
-#### **1. Normal User**
+#### **1. Normal User (Guest)**
 **Must Have**  
 1. As a normal user, I want to **sign up and log in** so that I can access my account.  
 2. As a normal user, I want to **browse events based on my location** so that I can find relevant events near me.  
@@ -49,27 +48,47 @@
 
 ---
 
-#### **3. Admin**
+#### **3. Place Owner**
 **Must Have**  
-1. As an admin, I want to **manage user accounts** (normal users and event creators) so that I can ensure smooth operation.  
-2. As an admin, I want to **approve or reject events created by event creators** so that the platform maintains quality.  
-3. As an admin, I want to **view platform analytics** (e.g., total users, events, revenue) so that I can make strategic decisions.  
-4. As an admin, I want to **resolve disputes between users and event creators** so that the platform remains trustworthy.
+1. As a place owner, I want to **log in and list my place** so that event creators can book it.  
+2. As a place owner, I want to **receive notifications for booking requests** so that I can respond promptly.  
+3. As a place owner, I want to **approve or reject booking requests** so that I can maintain control over my venue’s schedule.  
 
 **Should Have**  
-5. As an admin, I want to **send platform-wide announcements** so that I can notify users about important updates.  
-6. As an admin, I want to **disable problematic user accounts** so that the platform stays secure.  
+4. As a place owner, I want to **view a calendar of all approved bookings** so that I can organize my venue availability.  
+5. As a place owner, I want to **send messages to event creators** so that I can clarify booking requirements or resolve issues.  
 
 **Could Have**  
-7. As an admin, I want to **monitor real-time bookings** so that I can identify trends or issues immediately.
+6. As a place owner, I want to **see analytics about my venue usage** (e.g., booking frequency, revenue).  
 
 **Won’t Have (for now)**  
-8. As an admin, I want to **customize the UI of the platform** so that I can experiment with different themes.
+7. As a place owner, I want to **offer variable pricing** based on peak hours or seasons.
+
+---
+
+#### **4. Admin**
+**Must Have**  
+1. As an admin, I want to **manage user accounts** (normal users, event creators, and place owners) so that I can ensure smooth operation.  
+2. As an admin, I want to **approve or reject events created by event creators** so that the platform maintains quality.  
+3. As an admin, I want to **approve or reject places listed by place owners** to ensure legitimacy.  
+4. As an admin, I want to **view platform analytics** (e.g., total users, events, revenue) so that I can make strategic decisions.  
+5. As an admin, I want to **resolve disputes between users, event creators, and place owners** to maintain platform trust.  
+
+**Should Have**  
+6. As an admin, I want to **send platform-wide announcements** so that I can notify users about important updates.  
+7. As an admin, I want to **disable problematic user accounts** so that the platform stays secure.  
+
+**Could Have**  
+8. As an admin, I want to **monitor real-time bookings** so that I can identify trends or issues immediately.
+
+**Won’t Have (for now)**  
+9. As an admin, I want to **customize the UI of the platform** so that I can experiment with different themes.
 
 ---
 
 ### **Why Use MoSCoW?**
-Using the **MoSCoW** method helps you:  
-- Prioritize tasks that must be completed first.  
-- Ensure essential features are delivered within the deadline.  
-- Defer less critical features without affecting the core functionality.  
+The **MoSCoW** prioritization technique ensures:  
+- Critical features (**Must Have**) are delivered first to achieve the platform’s core goals.  
+- Features that enhance the user experience (**Should Have**) are included as resources allow.  
+- Additional features (**Could Have**) are considered if time permits.  
+- Features deemed less critical (**Won’t Have**) are deferred for future updates without impacting the current sprint or development cycle.  
