@@ -81,6 +81,15 @@ This REST API is designed for the **Event Booking Platform**, enabling various f
 - **Create Event**  
   **POST** `/events`  
   Requires `EventCreator` role.
+  ```json
+  {
+    "title": "Concert Name",
+    "description": "Event description",
+    "start_time": "2024-12-25T20:00:00",
+    "end_time": "2024-12-25T22:00:00",
+    "place_id": "UUID"
+  }
+  ```
 
 - **List Events**  
   **GET** `/events`  
@@ -105,6 +114,12 @@ This REST API is designed for the **Event Booking Platform**, enabling various f
 #### **Operations**
 - **Add Ticket**  
   **POST** `/tickets`
+  ```json
+  {
+    "eventId": "UUID",
+    "quantity": 2
+  }
+  ```
 
 - **List User Tickets**  
   **GET** `/tickets`
@@ -122,6 +137,12 @@ This REST API is designed for the **Event Booking Platform**, enabling various f
 #### **Operations**
 - **Create Invoice**  
   **POST** `/invoices`
+  ```json
+  {
+    "userId": "UUID",
+    "amount": 100.0
+  }
+  ```
 
 - **View Invoice**  
   **GET** `/invoices/:invoiceId`
@@ -150,10 +171,20 @@ This REST API is designed for the **Event Booking Platform**, enabling various f
 
 - **Manage Users**  
   **PATCH** `/admin/users/:userId/status`
+  ```json
+  {
+    "status": "active"
+  }
+  ```
 
 #### **Event and Ticket Oversight**
 - **Approve/Reject Events**  
   **PATCH** `/admin/events/:eventId/status`
+  ```json
+  {
+    "status": "approved"
+  }
+  ```
 
 - **Manage Payments**  
   **GET** `/admin/payments`
@@ -188,8 +219,7 @@ This REST API is designed for the **Event Booking Platform**, enabling various f
 
 ---
 
-This document can be expanded with additional details, such as sample errors, rate limiting, or webhooks. Let me know if you'd like further refinements!
-> ### **Potential Enhancements**
+### **9. Potential Enhancements**
 1. **Detailed Error Codes**:  
    - Provide examples of specific error codes (e.g., `401 Unauthorized`, `404 Not Found`) and explanations for common failures.
 
@@ -209,4 +239,6 @@ This document can be expanded with additional details, such as sample errors, ra
    - Offer more user workflows, like creating venues or admin operations.
 
 7. **Sample Errors**:  
-   - Add examples of error responses for invalid requests (e.g., missing parameters, unauthorized actions).
+   - Add examples of error responses for invalid requests (e.g., missing parameters, unauthorized actions). 
+
+---

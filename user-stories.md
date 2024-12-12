@@ -1,8 +1,7 @@
-### **User Stories (MoSCoW Prioritization)**
-
 ---
 
-#### **1. Normal User (Guest)**
+### **1. Normal User (Guest)**
+
 **Must Have**  
 1. As a normal user, I want to **sign up and log in** so that I can access my account.  
 2. As a normal user, I want to **browse events based on my location** so that I can find relevant events near me.  
@@ -27,7 +26,8 @@
 
 ---
 
-#### **2. Event Creator**
+### **2. Event Creator**
+
 **Must Have**  
 1. As an event creator, I want to **log in and create an event** so that users can book it.  
 2. As an event creator, I want to **choose if the event is online or offline** so that I can cater to different audiences.  
@@ -48,7 +48,8 @@
 
 ---
 
-#### **3. Place Owner**
+### **3. Place Owner**
+
 **Must Have**  
 1. As a place owner, I want to **log in and list my place** so that event creators can book it.  
 2. As a place owner, I want to **receive notifications for booking requests** so that I can respond promptly.  
@@ -66,7 +67,8 @@
 
 ---
 
-#### **4. Admin**
+### **4. Admin**
+
 **Must Have**  
 1. As an admin, I want to **manage user accounts** (normal users, event creators, and place owners) so that I can ensure smooth operation.  
 2. As an admin, I want to **approve or reject events created by event creators** so that the platform maintains quality.  
@@ -88,7 +90,7 @@
 
 ### **Why Use MoSCoW?**
 The **MoSCoW** prioritization technique ensures:  
-- Critical features (**Must Have**) are delivered first to achieve the platform’s core goals.  
-- Features that enhance the user experience (**Should Have**) are included as resources allow.  
-- Additional features (**Could Have**) are considered if time permits.  
-- Features deemed less critical (**Won’t Have**) are deferred for future updates without impacting the current sprint or development cycle.  
+- **Must Have** features are delivered first to meet the platform's core goals and provide a functional product.  
+- **Should Have** features are included based on available resources and time.  
+- **Could Have** features are considered if there's room in the development schedule or if time permits.  
+- **Won’t Have** features are excluded from the current cycle but may be revisited for future development.

@@ -1,7 +1,3 @@
-# Features
-
-This document provides a detailed breakdown of the key features of the **NeatTicket Event Booking Platform**, categorized by user roles and additional functionalities.
-
 ---
 
 ## **Normal User Features**
@@ -20,7 +16,7 @@ This document provides a detailed breakdown of the key features of the **NeatTic
 
 4. **Notifications:**
    - Receive updates and reminders for upcoming events.
-   - Notifications for successful bookings and payment confirmations.
+   - Notifications for successful bookings, payment confirmations, and event changes.
 
 5. **Event Interaction:**
    - Add booked events to personal calendars.
@@ -49,6 +45,9 @@ This document provides a detailed breakdown of the key features of the **NeatTic
 4. **Notifications:**
    - Send updates or announcements to attendees about event changes or important details.
 
+5. **Event Promotion:**
+   - Promote events via integrated social media sharing tools.
+
 ---
 
 ## **Place Owner Features**
@@ -66,6 +65,9 @@ This document provides a detailed breakdown of the key features of the **NeatTic
 
 4. **Direct Communication:**
    - Chat with event creators to finalize details or handle inquiries.
+
+5. **Venue Promotion:**
+   - Share venue details on social media to attract event organizers.
 
 ---
 
@@ -87,6 +89,9 @@ This document provides a detailed breakdown of the key features of the **NeatTic
 
 5. **Announcements:**
    - Send platform-wide notifications or updates to all users.
+
+6. **Platform Security:**
+   - Ensure user data protection, platform integrity, and prevent fraud.
 
 ---
 
@@ -116,6 +121,15 @@ This document provides a detailed breakdown of the key features of the **NeatTic
 
 5. **Social Media Sharing:**
    - Let users share events on social platforms to promote attendance.
+
+6. **Customizable Notifications:**
+   - Users can personalize notification preferences for bookings, reminders, or promotions.
+
+7. **Referral Program:**
+   - Users can refer friends to the platform and earn rewards or discounts on bookings.
+
+8. **Event Reminders:**
+   - Automated reminders for upcoming events based on user preferences.
 
 ---
 
