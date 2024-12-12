@@ -1,0 +1,109 @@
+// MongoDB Schema Design Example for Your Project
+
+// Users Collection
+{
+  "_id": ObjectId,
+  "first_name": String,
+  "last_name": String,
+  "username": String,
+  "email": String,
+  "password": String,
+  "profile_picture": String,
+  "location": String,
+  "roles": ["admin", "user"], // Embedded roles as an array
+  "created_at": Date,
+  "updated_at": Date
+}
+
+// Places Collection
+{
+  "_id": ObjectId,
+  "title": String,
+  "description": String,
+  "capacity": Number,
+  "price": Number,
+  "location": String,
+  "created_at": Date,
+  "updated_at": Date,
+  "user_id": ObjectId, // Reference to User
+  "reviews": [ // Embedded reviews
+    {
+      "user_id": ObjectId,
+      "comment": String,
+      "rating": Number,
+      "created_at": Date
+    }
+  ]
+}
+
+// Events Collection
+{
+  "_id": ObjectId,
+  "title": String,
+  "description": String,
+  "start_time": Date,
+  "end_time": Date,
+  "place_id": ObjectId, // Reference to Place
+  "created_at": Date,
+  "updated_at": Date,
+  "attendees": [ // Embedded attendees
+    {
+      "user_id": ObjectId,
+      "ticket_id": ObjectId // Reference to Ticket if needed
+    }
+  ]
+}
+
+// Tickets Collection
+{
+  "_id": ObjectId,
+  "status": String,
+  "created_at": Date,
+  "user_id": ObjectId, // Reference to User
+  "event_id": ObjectId, // Reference to Event
+  "invoice_id": ObjectId // Reference to Invoice
+}
+
+// Notifications Collection
+{
+  "_id": ObjectId,
+  "user_id": ObjectId, // Reference to User
+  "message": String,
+  "created_at": Date
+}
+
+// Invoices Collection
+{
+  "_id": ObjectId,
+  "status": String,
+  "amount": Number,
+  "transaction_id": String,
+  "user_id": ObjectId, // Reference to User
+  "created_at": Date
+}
+
+// Payment Methods Collection
+{
+  "_id": ObjectId,
+  "name": String,
+  "details": String,
+  "invoice_id": ObjectId // Reference to Invoice
+}
+
+// Place Creator Applications Collection
+{
+  "_id": ObjectId,
+  "user_id": ObjectId, // Reference to User
+  "place_name": String,
+  "status": String,
+  "location": String,
+  "capacity": Number,
+  "created_at": Date,
+  "updated_at": Date
+}
+
+// Roles Collection (Optional for Role Management)
+{
+  "_id": ObjectId,
+  "name": String
+}
