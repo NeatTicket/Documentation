@@ -1,5 +1,3 @@
----
-
 ### **Project Title:**
 **NeatTicket** – A Seamless Event Booking Platform  
 
